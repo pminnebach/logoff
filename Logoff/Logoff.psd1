@@ -5,7 +5,7 @@
     Author            = 'logoff'
     Description       = 'Gentle user logoff before scheduled Windows server reboots.'
     PowerShellVersion = '5.1'
-    FunctionsToExport = @('Invoke-GentleLogoff')
+    FunctionsToExport = @('Get-LoggedOnSession', 'Invoke-GentleLogoff')
     CmdletsToExport   = @()
     VariablesToExport = @()
     AliasesToExport   = @()

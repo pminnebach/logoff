@@ -2,7 +2,7 @@
 
 The **Logoff** PowerShell module enumerates interactive user sessions on a local Windows server, sends timed warning messages, and requests a graceful logoff before a maintenance reboot.
 
-Only `Invoke-GentleLogoff` is exported. All other functions live under `Logoff/Private/` and are not part of the public API.
+Only `Get-LoggedOnSession` and `Invoke-GentleLogoff` are exported. All other functions live under `Logoff/Private/` and are not part of the public API.
 
 ## Module layout
 
@@ -11,6 +11,7 @@ Logoff/
 ├── Logoff.psd1
 ├── Logoff.psm1
 ├── Public/
+│   ├── Get-LoggedOnSession.ps1
 │   └── Invoke-GentleLogoff.ps1
 └── Private/
     ├── Get-InteractiveSessions.ps1
@@ -39,6 +40,10 @@ Run an elevated PowerShell session on the server:
 
 ```powershell
 Import-Module 'C:\Scripts\Modules\Logoff'
+
+# List current sessions
+Get-LoggedOnSession
+Get-LoggedOnSession | Format-Table SessionId, DisplayUser, State, SessionName -AutoSize
 
 # Dry run — lists sessions and planned actions, sends no messages
 Invoke-GentleLogoff -WhatIf
@@ -186,6 +191,16 @@ New-ScheduledTaskTrigger -Weekly -DaysOfWeek Sunday -At '01:45'
 ---
 
 ## Parameters
+
+### `Get-LoggedOnSession`
+
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `ExcludeUsers` | (none) | SAM account names to omit from results |
+
+Returns objects with: `SessionId`, `SessionName`, `UserName`, `DomainName`, `State`, `DisplayUser`.
+
+### `Invoke-GentleLogoff`
 
 | Parameter | Default | Description |
 |-----------|---------|-------------|
