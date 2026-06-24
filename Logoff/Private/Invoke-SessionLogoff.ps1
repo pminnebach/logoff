@@ -8,7 +8,7 @@ function Invoke-SessionLogoff {
     )
 
     if ($PSCmdlet.ShouldProcess("session $SessionId", 'Log off')) {
-        $ok = [WtsNative]::WTSLogoffSession([IntPtr]::Zero, $SessionId, $false)
+        $ok = [WtsNative]::LogoffSession($SessionId)
         if (-not $ok) {
             $errorText = [ComponentModel.Win32Exception]::new([Runtime.InteropServices.Marshal]::GetLastWin32Error()).Message
             Write-GentleLogoffLog -Text "WTSLogoffSession failed for session ${SessionId}: $errorText" -Level ERROR -LogPath $LogPath

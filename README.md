@@ -15,7 +15,6 @@ Logoff/
 │   └── Invoke-GentleLogoff.ps1
 └── Private/
     ├── Get-InteractiveSessions.ps1
-    ├── Get-WtsString.ps1
     ├── Initialize-WtsNative.ps1
     ├── Invoke-SessionLogoff.ps1
     ├── Send-SessionMessage.ps1
