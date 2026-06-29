@@ -4,12 +4,12 @@
 
 The **Logoff** PowerShell module enumerates interactive user sessions on a local Windows server, sends timed warning messages, and requests a graceful logoff before a maintenance reboot.
 
-Only `Get-LoggedOnSession` and `Invoke-GentleLogoff` are exported. All other functions live under `Logoff/Private/` and are not part of the public API.
+Only `Get-LoggedOnSession` and `Invoke-GentleLogoff` are exported. All other functions live under `src/Private/` and are not part of the public API.
 
 ## Module layout
 
 ```
-Logoff/
+src/
 ├── Logoff.psd1
 ├── Logoff.psm1
 ├── Public/
@@ -25,7 +25,7 @@ Logoff/
 
 ## Deploy the module
 
-1. Copy the entire `Logoff` folder to a permanent path on the server, for example:
+1. Copy the entire `src` folder to a permanent path on the server, for example:
    ```
    C:\Program Files\WindowsPowerShell\Modules\Logoff\
    ```
