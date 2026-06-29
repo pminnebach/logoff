@@ -110,7 +110,13 @@ function Invoke-GentleLogoff {
     $sessions = Get-InteractiveSessions -ExcludeUsers $ExcludeUsers
     foreach ($session in $sessions) {
         Write-GentleLogoffLog -Text "Logging off $($session.DisplayUser) (session $($session.SessionId), $($session.State))." -LogPath $LogPath
-        $null = Invoke-SessionLogoff -SessionId $session.SessionId -LogPath $LogPath
+        if ($PSCmdlet.ShouldProcess("session $($session.SessionId)", 'Log off')) {
+            $ok = [WtsNative]::LogoffSession($session.SessionId)
+            if (-not $ok) {
+                $errorText = [ComponentModel.Win32Exception]::new([Runtime.InteropServices.Marshal]::GetLastWin32Error()).Message
+                Write-GentleLogoffLog -Text "WTSLogoffSession failed for session $($session.SessionId): $errorText" -Level ERROR -LogPath $LogPath
+            }
+        }
     }
 
     Start-Sleep -Seconds 15

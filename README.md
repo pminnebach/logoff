@@ -18,7 +18,6 @@ src/
 └── Private/
     ├── Get-InteractiveSessions.ps1
     ├── Initialize-WtsNative.ps1
-    ├── Invoke-SessionLogoff.ps1
     ├── Send-SessionMessage.ps1
     └── Write-GentleLogoffLog.ps1
 ```
@@ -39,7 +38,6 @@ flowchart LR
         GIS["Get-InteractiveSessions"]
         WGL["Write-GentleLogoffLog"]
         SSM["Send-SessionMessage"]
-        ISL["Invoke-SessionLogoff"]
     end
 
     GLS --> IWN
@@ -49,10 +47,8 @@ flowchart LR
     IGL --> GIS
     IGL --> WGL
     IGL --> SSM
-    IGL --> ISL
 
     SSM -.-> WGL
-    ISL -.-> WGL
 ```
 
 Every private function is used by at least one exported cmdlet; there are no uncalled private helpers.
