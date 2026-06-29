@@ -23,6 +23,40 @@ src/
     └── Write-GentleLogoffLog.ps1
 ```
 
+## Function call map
+
+Arrows show direct calls from exported cmdlets to private helpers. Dashed arrows are private-to-private calls (not invoked from public functions).
+
+```mermaid
+flowchart LR
+    subgraph public["Public (exported)"]
+        GLS["Get-LoggedOnSession"]
+        IGL["Invoke-GentleLogoff"]
+    end
+
+    subgraph private["Private"]
+        IWN["Initialize-WtsNative"]
+        GIS["Get-InteractiveSessions"]
+        WGL["Write-GentleLogoffLog"]
+        SSM["Send-SessionMessage"]
+        ISL["Invoke-SessionLogoff"]
+    end
+
+    GLS --> IWN
+    GLS --> GIS
+
+    IGL --> IWN
+    IGL --> GIS
+    IGL --> WGL
+    IGL --> SSM
+    IGL --> ISL
+
+    SSM -.-> WGL
+    ISL -.-> WGL
+```
+
+Every private function is used by at least one exported cmdlet; there are no uncalled private helpers.
+
 ## Deploy the module
 
 1. Copy the entire `src` folder to a permanent path on the server, for example:
