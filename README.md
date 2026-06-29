@@ -1,3 +1,5 @@
+> **Disclaimer:** This code was written with the assistance of AI. It has not been exhaustively reviewed for every environment. Use it at your own risk.
+
 # Gentle logoff before scheduled reboot
 
 The **Logoff** PowerShell module enumerates interactive user sessions on a local Windows server, sends timed warning messages, and requests a graceful logoff before a maintenance reboot.
